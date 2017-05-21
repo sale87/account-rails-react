@@ -26,6 +26,7 @@ var Records = React.createClass({
       <div className="records">
         <h2 className="title">Records</h2>
         <RecordForm handleNewRecord={this.addRecord} />
+        <hr></hr>
         <table className="table table-bordered">
           <thead>
             <tr>
