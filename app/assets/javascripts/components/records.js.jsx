@@ -11,16 +11,21 @@ var Records = React.createClass({
     };
   },
 
+  addRecord(record) {
+    records = this.state.records.slice();
+    records.push(record);
+    this.setState({records: records});
+  },
+
   render() {
     var records = this.state.records.map((r) => {
       return React.createElement(Record, {key: r.id, record: r});
     });
 
-    console.log(records);
-
     return (
       <div className="records">
         <h2 className="title">Records</h2>
+        <RecordForm handleNewRecord={this.addRecord} />
         <table className="table table-bordered">
           <thead>
             <tr>
@@ -30,7 +35,7 @@ var Records = React.createClass({
             </tr>
           </thead>
           <tbody>
-              {records}
+            { records }
           </tbody>
         </table>
       </div>
