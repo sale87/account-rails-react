@@ -10,25 +10,31 @@ var Records = React.createClass({
       records: [],
     };
   },
-  
+
   addRecord(record) {
-    records = React.addons.update(this.state.records, { $push: [record]});
+    var records = React.addons.update(this.state.records, { $push: [record]});
     this.setState({records: records});
   },
 
   deleteRecord(record) {
-    index = this.state.records.indexOf(record)
-    records = React.addons.update(this.state.records, { $splice: [[index, 1]] })
-    this.replaceState({records: records})
+    var index = this.state.records.indexOf(record);
+    var records = React.addons.update(this.state.records, { $splice: [[index, 1]] });
+    this.replaceState({records: records});
+  },
+
+  updateRecord(record, data) {
+    var index = this.state.records.indexOf(record);
+    var records = React.addons.update(this.state.records,{ $splice: [[index, 1, data]] });
+    this.replaceState({records: records});
   },
 
   credits() {
-    credits = this.state.records.filter(r => r.amount >= 0);
+    var credits = this.state.records.filter(r => r.amount >= 0);
     return credits.reduce((prev, current) => prev + parseFloat(current.amount), 0);
   },
 
   debits() {
-    debits = this.state.records.filter(r => r.amount < 0);
+    var debits = this.state.records.filter(r => r.amount < 0);
     return debits.reduce((prev, current) => prev + parseFloat(current.amount), 0);
   },
 
@@ -38,7 +44,9 @@ var Records = React.createClass({
 
   render() {
     var records = this.state.records.map((r) => {
-      return React.createElement(Record, {key: r.id, record: r, handleDeleteRecord: this.deleteRecord});
+      return React.createElement(
+        Record, {key: r.id, record: r, handleDeleteRecord: this.deleteRecord, handleEditRecord: this.updateRecord}
+      );
     });
 
     return (

@@ -8,7 +8,7 @@ var RecordForm = React.createClass({
   },
 
   handleChange(event) {
-    name = event.target.name;
+    var name = event.target.name;
     this.setState({[name]: event.target.value})
   },
 
